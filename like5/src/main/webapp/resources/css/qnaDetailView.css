@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* [한솔] QnA 게시글 상세 페이지 css */
+
+/* 페이지 상단 이름/버튼 배열 */
+.qnaMain{height:100%; margin:0% 4% 0% 4%;}
+.qnaTop{width:100%; margin:auto; display:flex; padding:2% 2% 0% 2%;}
+.qnaTop1{width:80%; display:left;}
+.qnaTop2{width:20%; text-align:right; margin:auto;}
+.qnaTop2>button{margin-top:10px;}
+
+/* 게시글 정보 영역 배열 */
+.qnaInfo{width:100%; margin-top:1%; border-top:2px solid lightgray; border-bottom:2px solid lightgray;}
+.qnaInfo table{width:100%; margin:1% 0% 1% 0%;}
+.tableBlank{width:2%;}
+.qnaTitle, .qnaTag{width:78%;}
+.qnaLike1, .qnaReply1, .qnaView1{width:2.5%; text-align:center; font-size:14px;}
+.qnaLike2, .qnaReply2, .qnaView2{width:3.5%; text-align:center; font-size:14px;}
+.qnaUser1{text-align:center; font-size:14px}
+.qnaUser2{font-size:14px;}
+.qnaUser3{font-size:10px; color:darkgrey; text-align:center; padding-top:4px;}
+
+/* 게시글 제목 */
+.qnaTitle{font-size:20px; font-weight:bold;}
+
+/* 태그 버튼 스타일 */
+.w3-button{padding-top:1px !important; padding-bottom:1px !important;}
+
+/* 게시글 상세 영역 배열 */
+.qnaDetail{width:100%; height:100%; margin:auto; display:flex; border-bottom:2px solid lightgray;}
+.qnaContent{width:90%; height:100%; padding:2%; text-align:justify;}
+.qnaIcon{width:10%; height:400px; border-left:2px solid lightgray;}
+
+/* 우측 아이콘 스타일 */
+.qnaIcon table{width:100%; height:100%; text-align:center;}
+.icon{padding-top:5%; font-size:30px;}
+.iconName{padding-bottom:15%;font-size:12px; color:gray;}
+
+/* 폰트어썸 아이콘 커서 */
+.icon, .rIcon{cursor:pointer;}
+
+/* 페이지 하단 댓글 영역 배열 */
+.qnaBottom{height:100%;}
+.replyLv1 .replyInfo{width:100%; margin-top:-2px; border-top:2px solid lightgray; border-bottom:2px solid lightgray;}
+.replyLv2 {margin-left:5%; margin-top:-1px;}
+.replyLv2 .replyInfo{width:100%; margin-top:-2px; border-top:none; border-bottom:2px solid lightgray;}
+.replyInfo table{width:100%; margin:1% 0% 1% 0%;}
+.replyUser1{width:3%; font-size:20px; text-align:left;}
+.replyUser2{width:63%; font-size:14px;}
+.replyUser3{font-size:10px; color:darkgrey;}
+.replyAdoption{width:15%; text-align:right;}
+.replyLv1 .reReply{width:15%; text-align:right;}
+
+/* 답변 상세 영역 배열 */
+.replyDetail{width:100%; height:100%; margin-top:-2px; display:flex; border-bottom:2px solid lightgray;}
+.replyContent{width:90%; height:100%; padding:2%; text-align:justify;}
+.replyIcon{width:10%; height:220px; border-left:2px solid lightgray;}
+
+/* 답변 우측 아이콘 스타일 */
+.replyIcon table{width:100%; height:80%; text-align:center;}
+.rIcon{margin-top:10%; padding-top:15px; font-size:20px;}
+.rIconName{padding:0; font-size:14px; color:gray;}
+
+/* 대댓글 작성 스타일 */
+.writeReReply{width:100%; margin-top:-2px;}
+
+/* 답변관련 안내 배열 및 스타일 */
+.writeReply{height:100%;}
+.replyGuide{width:100%; margin:auto; display:flex; font-size:18px; padding:3% 0% 1% 2%;}
+.replyGuide1{width:10%; display:left;}
+.replyGuide2{width:20%; font-size:14px; text-align:left; padding-top:5px; color:gray;}
+.replyGuide3{width:70%;}
+
+/* hover 시 나타나는 검색 툴팁 스타일 */
+.replyGuide2{position:relative; display:inline-block; cursor:pointer;}
+
+.replyGuide2 .tooltiptext{
+  visibility:hidden;    /* [visibility] 요소 숨김 여부 / [hidden] 숨김 / [visible] 보임 */
+  width:350px;
+  background-color:rgb(220, 53, 69);
+  color:white;
+  text-align:center;
+  border-radius:6px;    /* 테두리 경계의 꼭짓점 둥글게 */
+  padding:20px 10px 20px 10px;
+  position:absolute;
+  z-index:1;    /* [z-index] 위치 지정 요소 및 그 자손 또는 하위 플렉스 아이템의 z축 순서 지정 */
+  top:150%;
+  right:-20%;    /* 툴팁 위치 조정 */
+}
+
+.replyGuide2 .tooltiptext::after{
+  content:"";   /* [content] 생성한 값으로 요소 대체 */
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  border-width:5px;
+  border-style:solid;
+  border-color:transparent transparent rgb(220, 53, 69) transparent;   /*[transparent] 투명화 */
+}
+
+.replyGuide2:hover .tooltiptext{visibility:visible;}
+
+/* 로그인한 회원 정보 배열 */
+.userInfo{width:100%; height:70px; margin:auto;
+          border-top:2px solid lightgray; border-bottom:2px solid lightgray;}
+.userInfo table{width:100%; margin:3px 0px 5px 0px; height:60px; font-size:17px;}
+.userInfo1{width:2.5%;}
+.userInfo3{width:10%;}
+.userWrite1{width:100%; height:100%; border-bottom:2px solid lightgray;}
+
+/* 답변달기 관련 하단부 배열 */
+.userWrite2{width:100%; display:flex; padding:2% 2% 2% 90%; margin-bottom:5%;}
+#userReply1{width:100% !important; padding:20px !important; margin-top:5px;}
+
+/* a태그 스타일 */
+.btn a, .w3-button a{text-decoration:none !important;}
+.btn a:hover, .w3-button a:hover{color:white;}
+
+/* 신고하기 모달 스타일 */
+#report-modal{width:100%; height:100%;}
+.modal-header{background-color:rgba(224, 224, 224, 0.24);}
+.report-user{width:100%; padding-bottom:5%;}
+.modal-choice{width:100%; border:1px solid darkgrey; border-radius: 5px;}
+.modal-choice>table{margin:5%; font-size:14px;}
+#modal-R>*{color:red; padding-left:30px;}

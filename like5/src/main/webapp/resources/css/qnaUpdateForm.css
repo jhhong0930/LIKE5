@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+/* [한솔] QnA 게시글 수정 페이지 css */
+
+/* 본문 스타일 */
+.qnaMain{height:100%; margin:0% 4% 0% 4%;}
+.qnaTop{width:100%; margin:auto; padding:2% 2% 1% 2%;}
+
+/* 본문 좌/우 배치 */
+.qnaBottom{width:100%; height:100%; margin-bottom:7%; display:flex;
+  border-top:2px solid lightgray; border-bottom:2px solid lightgray;}
+.qnaBottomLeft{width:70%; padding:2%; border-right:2px solid lightgrey;}
+.qnaBottomRight{width:30%; padding:2%;}
+
+/* 설명 영역 버튼 스타일 */
+button[class$=secondary]{height:27px; margin-bottom:0.5% !important;
+  padding-top:1px !important; padding-bottom:1px !important; font-size:15px;}
+
+/* 제목, 태그 입력창 스타일 */
+input[class^=form]{padding:2%; height:40px; font-size:15px; border:1px solid lightgrey; border-radius:5px;}
+#tagInput{height:35px; width:100%; padding:2% 2% 2% 5%; font-size:13px;
+  border-bottom:1px solid lightgray; border-top:none; border-left:none; border-right:none;}
+
+/* 입력 안내문(라벨) 스타일 */
+label{font-size:14px;}
+
+/* placeholder 스타일 적용 */
+input:-ms-input-placeholder{font-size:11px; color:#C0C0C0 !important;}
+input::-webkit-input-placeholder{font-size:11px; color:#C0C0C0 !important;}
+input::-moz-placeholder{font-size:11px; color:#C0C0C0 !important;}
+
+/* 체크박스 스타일 */
+#agree{height:15px; weight:15px;}
+
+/* 팁 아코디언 스타일 */
+.tipName{height:40px; background-color:lightgray; text-align:center; padding-top:10px;}
+#tip{padding:10px; font-size:14px;}
+div[id^=Tip] p{padding:20px 10px; font-size:13px;}
+.tipLine{margin:0; border-top:1px solid lightgray;}
+
+/* 테이블 폰트 사이즈 */
+table{font-size:13px;}
+
+/* 임시저장, 작성하기 버튼 스타일 */
+button[class$=round]{height:35px; width:80px; padding:5px; margin-right:5px;}

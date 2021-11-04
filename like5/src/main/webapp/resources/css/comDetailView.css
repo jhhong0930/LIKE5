@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+
+ a { text-decoration:none !important } a:hover { text-decoration:none !important }
+
+   .content-header-bottom {
+       padding-top:7px;
+       padding-bottom: 8px;
+       display: flex;
+       justify-content: space-between;
+   }
+
+   .TalkContentHeaderModule{
+       float: left;
+       height: 100%;
+       width:100%;
+   }
+
+   .talk-comment-count-box{
+       font-size: 1.2rem;
+       padding-top:10px;
+       padding-bottom: 10px;
+   }
+
+   .TalkCommentModule .comment-info .user-img>*{
+       height: 50px;
+       width:50px;
+       border-radius: 50px;
+       margin-right: 10px;
+       background-color:rgb(224, 224, 224) ;
+       text-align: center;
+       padding-top: 10px;
+   }
+
+   .TalkCommentModule{padding: 15px;}
+   .TalkCommentModuleTemplate>* .TalkCommentModule>*{margin-top:30PX;}
+   .talk-comment-lists{margin-top: 50px;}
+   .user-info{display: flex;font-size: 12px;}
+   .comment-content{
+       margin-top: 10px;
+       padding-left: 50px;
+       height: 50px;
+   }
+
+   .comments-wrapper_value{
+       background-color: ghostwhite;
+       margin-left: 30px;
+       margin-bottom: 15px;
+       padding-left: 10px;
+       padding-top: 30px;
+   }
+
+   .modal-body span{font-size: 9px;} 
+   .modal-body {font-size: 12px;}
+   .modal-content{padding: 5px;margin-top: 5px;}
+
+    textarea.form-control:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+       border-color: rgba(224, 224, 224, 0.3);
+       box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(224, 224, 224, 0.3);
+       outline: 0 none;
+   }

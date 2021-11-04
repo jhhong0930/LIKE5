@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+/* [한솔] 회원 프로필 조회 페이지 css */
+
+/* 본문 스타일 */
+.profileMain{height:100%; margin:0% 4% 0% 4%;}
+.profileTop{width:100%; margin-top:5%; padding:1%;
+  border-top:2px solid lightgray; border-bottom:2px solid lightgray;}
+
+/* 회원 정보 영역 배열 및 스타일 */
+.profileTop table{width:100%; height:50px; padding-left:20px;}
+.memName{width:100%; height:50%; padding:30px 0px 0px 0px; font-size:20px; font-weight:bold;}
+.memPhoto{width:10%; text-align:right; font-size:80px;}
+.blank1{width:2%; text-align:center; padding-bottom:30px;}
+.memWriteNo{width:11%; padding-bottom:30px;}
+.memReplyNo{width:11%; padding:0px 0px 30px 20px;}
+.blank2{width:64%;}
+
+
+/* 카테고리 선택 영역 배열 */
+.pickCategory{width:100%; display:flex; padding:5% 0% 1% 2%; font-size:14px; color:lightgrey;}
+.myContent{width:5%;}
+.myReply{width:6%;}
+.myScrap{width:9%;}
+.myNull{width:72%;}
+
+/* 글/댓글/스크랩 내역 영역 스타일 */
+.listInfo table{width:100%; text-align:center;}
+.thCell{background-color:rgb(220, 53, 69);}
+.thCell th{color:white !important; height:40px; padding-top:9px;}
+.nullCell{width:5%;}
+.checkIt{width:10%;}
+.contentNo{width:10%;}
+.contentTitl{width:45%;}
+.contentDate{width:20%;}
+
+/* 페이지네이션 스타일 */
+.w3-center{padding-top:5%; padding-bottom:7%;}
+.w3-center a{padding:8px 16px;}
+.w3-center a.active{background-color:rgb(220, 53, 69); color:white;}
+.w3-center a:hover:not(.active){background-color:lightgray;}
+
+/* 전체선택, 삭제하기 영역 배열 */
+.listCheck{width:100%; padding:2%; display:flex;}
+.checkAll{width:92%; padding-top:5px;}
+.deleteButton{width:8%;}
+
+/* a태그 스타일 */
+[class^=my]>a, .w3-center>a, .btn>a{text-decoration:none !important;}
+.w3-center a:hover, .btn a:hover{color:white;}
+[class^=my]>a:hover{color:lightgray;}

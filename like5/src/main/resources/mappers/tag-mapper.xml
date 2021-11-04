@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tagMapper">
+
+	<resultMap id="tagResult" type="Tag">
+		<result column="tag_no" property="tagNo" />
+		<result column="tag_name" property="tagName" />
+		
+	</resultMap>
+
+	<select id="tagList" resultMap="tagResult">
+		select * from tag
+	</select>
+	
+	<select id="selectTagsCount" resultType="_int">
+		select  
+		       count(*)
+		from tag
+	</select>
+	
+	<select id="selectAllTags" resultMap="tagResult">
+		select  
+		        tag_no
+		      , tag_name
+		from tag
+		order by tag_no
+	</select>
+	
+	<insert id="addTag">
+		insert into tag
+			  (tag_no
+			, tag_name)
+		values
+			(
+			 	seq_tag.nextval
+			  , #{tagName}
+			  )
+		
+			
+	</insert>
+	<update id="updateTag">
+		update tag set tag_name=#{tagName}
+		where tag_no = #{tagNo}
+	</update>
+	
+	
+</mapper>

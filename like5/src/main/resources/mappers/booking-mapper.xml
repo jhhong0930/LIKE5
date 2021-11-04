@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="bookingMapper">
+
+  <resultMap type="Booking" id="bookingResultSet">
+  	<id property="bookingNo" column="bookin_no"/>
+  	<result property="officeNo" column="office_no"/>
+  	<result property="memNo" column="mem_no"/>
+  	<result property="startDate" column="start_date"/>
+  	<result property="endDate" column="end_date"/>
+  	<result property="requestDate" column="request_date"/>
+  	<result property="modifyDate" column="modify_date"/>
+  	<result property="status" column="status"/>
+  	<result property="person" column="person"/>
+  	<result property="phone" column="phone"/>
+  	<result property="bAsk" column="b_ask"/>
+  	<result property="total" column="total"/>
+  	<result property="typeName" column="type_name"/>
+  	<result property="price" column="price"/>
+  	<result property="memName" column="mem_name"/>
+  	<result property="branch" column="branch"/>
+  </resultMap>
+
+  <resultMap type="Office" id="officeResultSet">
+  	<id property="officeNo" column="office_no"/>
+  	<result property="branch" column="branch"/>
+  	<result property="address" column="address"/>
+  	<result property="manager" column="manager"/>
+  	<result property="facility" column="facility"/>
+  	<result property="typeName" column="type_name"/>
+  	<result property="person" column="person"/>
+  	<result property="price" column="price"/>
+  	<result property="offImgPath" column="off_img_path"/>
+  </resultMap>
+
+  <resultMap type="Attachment" id="attachmentResultSet">
+  	<id property="fileNo" column="file_no"/>
+  	<result property="refBno" column="ref_bno"/>
+  	<result property="refFno" column="ref_fno"/>
+  	<result property="uploadDate" column="upload_date"/>
+  	<result property="status" column="status"/>
+  	<result property="filePath" column="file_path"/>
+  </resultMap>
+
+  <resultMap type="Review" id="ReviewResultSet">
+  	<result property="reviewNo" column="review_no"/>
+  	<result property="reviewTitle" column="review_title"/>
+  	<result property="reviewContent" column="review_content"/>
+  	<result property="reviewWriter" column="review_Writer"/>
+  	<result property="reviewStar" column="review_Star"/>
+  	<result property="createDate" column="create_Date"/>
+  	<result property="status" column="status"/>
+  </resultMap>
+
+  <select id="selectOfficeList" parameterType="Office" resultMap="officeResultSet">
+  	select
+  		   distinct o.office_no
+  		 , branch
+  		 , address
+  		 , facility
+  		 , type_name
+  		 , price
+  		 , off_img_path
+    from office o
+    left join booking b on(o.office_no = b.office_no)
+   where o.office_no not in (select distinct b.office_no
+   							   from booking b
+   							   join office o on(b.office_no = b.office_no)
+   							  where start_date in #{startDate}
+   							    and end_date in #{endDate}
+   							    and branch like '%'||#{branch}||'%')
+     and branch like '%'||#{branch}||'%'
+     and o.person = #{person}
+  </select>
+  
+  <select id="autoComplete" parameterType="Office" resultMap="officeResultSet">
+	select
+		   distinct branch
+	  from office
+	 where branch like '%'||#{searchKeyword}||'%'
+  </select>
+  
+  <select id="selectList" parameterType="Office" resultMap="officeResultSet">
+  select
+		 o.office_no
+	   , branch
+	   , address
+	   , manager
+	   , facility
+	   , type_name
+	   , o.person
+	   , price
+	   , off_img_path
+	from office o
+	join booking b on(o.office_no = b.office_no)
+   where b.start_date  not in #{startDate}
+	 and b.end_date not in #{endDate}
+	 and branch like '%'||#{branch}||'%'
+	 or address like '%'||#{branch}||'%'
+  </select>
+
+  <select id="selectListCount" resultType="_int">
+	select
+		   count(*)
+	 from  office
+  </select>
+
+  <select id="selectListAll" parameterType="Office" resultMap="officeResultSet">
+  select
+		 o.office_no
+	   , branch
+	   , address
+	   , manager
+	   , facility
+	   , type_name
+	   , o.person
+	   , price
+	   , off_img_path
+	from office o
+   order
+   	  by office_no desc
+  </select>
+
+  <select id="selectOffice" parameterType="Office" resultMap="officeResultSet">
+   select
+		 o.office_no
+	   , branch
+	   , address
+	   , manager
+	   , facility
+	   , type_name
+	   , o.person
+	   , price
+	   , off_img_path
+	from office o
+   where office_no = #{officeNo}
+  </select>
+
+  <select id="selectOfficeAtt" parameterType="Attachment" resultMap="attachmentResultSet">
+  	select
+  		   file_no
+	  	 , ref_bno
+	  	 , ref_fno
+	  	 , to_char(upload_date, 'YYYY-MM-DD') as upload_date
+	  	 , status
+	  	 , file_path
+	 from  attachment
+    where  ref_bno = 9
+      and  ref_fno = #{officeNo}
+      and status='Y'
+
+  </select>
+  
+  <insert id="insertOffice" parameterType="Office">
+ 	insert
+ 	  into office
+ 	  (
+ 	  	   office_no
+ 	  	 , branch
+ 	  	 , address
+ 	  	 , manager
+ 	  	 , facility
+ 	  	 , type_name
+ 	  	 , person
+ 	  	 , price
+ 	  	 , off_img_path
+ 	  )
+ 	values
+ 	  (
+ 	  	   SEQ_FNO.nextval
+ 	  	 , #{branch}
+ 	  	 , #{address}
+ 	  	 , #{manager}
+ 	  	 , #{facility}
+ 	  	 , #{typeName}
+ 	  	 , #{person}
+ 	  	 , #{price}
+ 	  	 , #{offImgPath}
+ 	  )
+  </insert>
+
+  <insert id="insertOfficeAtt" parameterType="Attachment">
+	insert
+	  into attachment
+	  (
+	  	   file_no
+	  	 , ref_bno
+	  	 , ref_fno
+	  	 , upload_date
+	  	 , status
+	  	 , file_path
+	  )
+	values
+	(
+		   SEQ_ANO.nextval
+		 , 9
+		 , SEQ_FNO.currval
+		 , default
+		 , default
+		 , #{filePath}
+	)
+  </insert>
+
+  <insert id="insertOfficeReAtt" parameterType="Attachment">
+	insert
+	  into attachment
+	  (
+	  	   file_no
+	  	 , ref_bno
+	  	 , ref_fno
+	  	 , upload_date
+	  	 , status
+	  	 , file_path
+	  )
+	values
+	(
+		   seq_ano.nextval
+		 , 9
+		 , #{refFno}
+		 , default
+		 , default
+		 , #{filePath}
+	)
+  </insert>
+
+  <delete id="deleteOffice" parameterType="int">
+  	delete
+  	  from office
+  	 where office_no = #{ono}
+  </delete>
+
+  <delete id="deleteOfficeAtt" parameterType="int">
+  	delete
+  	  from attachment
+  	 where ref_bno = 9
+  	   and ref_fno = #{ono}
+  </delete>
+  
+  <select id="selectOffImgPaths" parameterType="int" resultType="string">
+  	select
+  		  off_img_path
+  	 from office
+  	where office_no = #{check}
+  </select>
+  
+  <select id="selectFilePaths" parameterType="Attachment" resultMap="attachmentResultSet">
+  	select
+  		  file_path
+  	 from attachment
+  	where ref_bno = 9
+  	  and ref_fno = #{check}
+  </select>
+  
+  <delete id="deleteOffices" parameterType="int">
+  	delete
+  	  from office
+  	 where office_no = #{check}
+  </delete>
+  
+  <delete id="deleteFilePaths" parameterType="int">
+  	delete
+  	  from attachment
+  	 where ref_bno = 9
+  	   and ref_fno = #{check}
+  </delete>
+  
+  <update id="updateOfficeAtt" parameterType="Attachment">
+	update
+		   attachment
+	  set  file_path = #{filePath}
+	where  file_no = #{fileNo}
+	  and  ref_fno = #{refFno}
+	  and  ref_bno = 9
+	  and  status = 'Y'
+  </update>
+  
+  <update id="updateOffice" parameterType="Office">
+	update
+		   office
+	  set  off_img_path = #{offImgPath}
+	  	 , branch = #{branch}
+	  	 , manager = #{manager}
+	  	 , facility = #{facility}
+	  	 , address= #{address}
+	  	 , type_Name= #{typeName}
+	  	 , person = #{person}
+	  	 , price = #{price}
+	where  office_no = #{officeNo}
+  </update>
+  
+  <!-- 첨부파일 조회 + 사진 -->
+  <select id="selectAtList" resultMap="attachmentResultSet">
+  		select
+		       file_no
+		     , file_path
+		     , ref_bno
+		     , ref_fno
+		     , upload_date
+		     , status
+		  from attachment
+		 where ref_bno = 9
+		   and ref_fno = #{refFno}
+		   and status = 'Y'
+  </select>
+
+  <select id="selectBooking" parameterType="Booking" resultMap="bookingResultSet">
+  	select
+  		  bookin_no
+  		, office_no
+  		, mem_no
+  		, start_date
+  		, end_date
+  		, request_date
+  		, modify_date
+  		, status
+  		, person
+  		, phone
+  		, b_ask
+  		, total
+  	 from booking
+  	where office_no = #{officeNo}
+  	  and status = 'Y'
+  </select>
+
+  <insert id="insertBook" parameterType="Booking">
+  	insert
+  	  into booking
+  	  (
+  	  	   bookin_no
+  	  	 , office_no
+  	  	 , mem_no
+  	  	 , start_date
+  	  	 , end_date
+  	  	 , request_date
+  	  	 , modify_date
+  	  	 , status
+  	  	 , person
+  	  	 , phone
+  	  	 , b_ask
+  	  	 , total
+  	  )
+  	values
+  	  (
+  	  	   seq_bno.nextval
+  	  	 , #{officeNo}
+  	  	 , #{memNo}
+  	  	 , #{startDate}
+  	  	 , #{endDate}
+  	  	 , default
+  	  	 , default
+  	  	 , default
+  	  	 , #{person}
+  	  	 , #{phone}
+  	  	 , #{bAsk}
+  	  	 , #{total}
+  	  )
+  </insert>
+  
+  <select id="selectB" parameterType="Booking" resultMap="bookingResultSet">
+  	select
+  		  to_char(start_date, 'YYYY-MM-DD') as start_date
+  		, to_char(end_date, 'YYYY-MM-DD') as end_date
+  	 from booking
+  	where office_no = #{officeNo}
+  </select>
+  
+  <select id="selectListCountBook" resultType="_int">
+  	select
+		   count(*)
+	 from  booking
+	where  mem_no = #{memNo}
+  </select>
+
+	<!-- 리뷰 조회 -->
+	  <select id="selectReview" resultMap="ReviewResultSet">
+		  	select
+		       review_no
+		     , review_title
+		     , review_content
+		     , review_writer
+		     , review_star
+		     , create_date
+		     , office_no
+		     , status
+		  from review
+		 where office_no = #{officeNo}
+		   and status = 'Y'
+		</select>
+		
+	<select id="selectMyBookList" parameterType="Booking" resultMap="bookingResultSet">
+	select
+  		  bookin_no
+  		, o.office_no
+  		, mem_no
+  		, to_char(start_date, 'YYYY-MM-DD') as start_date
+  		, to_char(end_date, 'YYYY-MM-DD') as end_date
+  		, to_char(request_date, 'YYYY-MM-DD') as request_date
+  		, modify_date
+  		, status
+  		, b.person
+  		, phone
+  		, b_ask
+  		, total
+  		, branch
+  		, type_name
+  		, price
+  	 from booking b
+  	 join office o on(b.office_no = o.office_no)
+  	where mem_no = #{memNo}
+  	order
+  	   by bookin_no desc
+	</select>
+	
+	<select id="selectMyBook" parameterType="Booking" resultMap="bookingResultSet">
+	select
+  		  bookin_no
+  		, o.office_no
+  		, mem_no
+  		, to_char(start_date, 'YYYY-MM-DD') as start_date
+  		, to_char(end_date, 'YYYY-MM-DD') as end_date
+  		, to_char(request_date, 'YYYY-MM-DD')as request_date
+  		, modify_date
+  		, status
+  		, b.person
+  		, phone
+  		, b_ask
+  		, total
+  		, branch
+  		, type_name
+  		, price
+  	 from booking b
+  	 join office o on(b.office_no = o.office_no)
+  	where bookin_no = #{bookingNo}
+	</select>
+	
+  <update id="updateMyBook" parameterType="Booking">
+  	update
+  		   booking
+  	  set  start_date = #{startDate}
+  	  	 , end_date = #{endDate}
+  	  	 , modify_date = sysdate
+  	  	 , person = #{person}
+  	 where bookin_no = #{bookingNo}
+  </update>
+  
+  <update id="deleteMyBook" parameterType="Booking">
+  	update
+  		   booking
+  	  set  status = 'N'
+  	 where bookin_no = #{bno}
+  </update>
+  
+  <select id="selectSpaceCount" resultType="_int">
+  	select
+  	       count(*)
+  	  from booking       
+  </select>
+  
+  <!-- 예약관리 조회 -->
+  <select id="selectSpace" resultMap="bookingResultSet">
+  	select bookin_no
+		    , branch 
+		    , mem_name
+		    , type_name
+		    , to_char(request_date, 'YYYY-MM-DD')as request_date
+		    , status
+		from booking
+		join office using(office_no)
+		join member using(mem_no)
+		order
+  	   		by bookin_no asc
+  </select>
+  
+  <!-- 예약관리 선택삭제 -->
+  <update id="delete">
+  	 update 
+  	        booking
+  	    set status = 'N'    
+  	  where bookin_no = #{bookingNo}     
+  </update>
+  
+  <!-- 예약 관리 리스트 상세 조회 -->
+  <select id="selectOfficeSpace" resultMap="bookingResultSet">
+	  select
+	       bookin_no
+	     , to_char(start_date, 'YYYY-MM-DD') as start_date
+	     , to_char(end_date, 'YYYY-MM-DD') as end_date
+	     , to_char(request_date, 'YYYY-MM-DD')as request_date
+	     , price
+	     , b.person
+	  from booking b
+	  join office o on (b.office_no = o.office_no)
+	  where bookin_no = #{bookingNo}
+  </select>
+</mapper>

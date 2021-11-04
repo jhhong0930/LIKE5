@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="sponsorshipMapper">
+ 
+ 	<resultMap id="sponResult" type="Sponsorship">
+		<result column="spon_no" property="sponNo"/>
+		<result column="mem_no" property="memNo"/>
+		<result column="smem_no" property="smemNo"/>
+		<result column="spon_fee" property="sponFee"/>
+		<result column="spon_date" property="sponDate"/>
+		<result column="spon_category" property="sponCategory"/>
+		<result column="ref_boa_no" property="refBoaNo"/>
+		<result column="mem_name" property="memName"/>
+		<result column="nickname" property="nickName"/>
+		<result column="email" property="email"/>
+		<result column="bank" property="bank"/>
+		<result column="account_num" property="accountNum"/>
+	</resultMap>
+  <!-- 후원관리 메인 -->
+  	<select id="selectSponCount" resultType="_int">
+  		select 
+		     count(distinct smem_no)
+		from sponsorship
+  	</select>
+  	
+  	<select id="selectSponList" resultMap="sponResult">
+  		select 
+		    smem_no
+		  , mem_name
+		  , nickname
+		  , email
+		  , sum(spon_fee) as spon_fee
+		  , account_num
+		from sponsorship s
+		join member m on(s.smem_no = m.mem_no)
+		group 
+		    by smem_no
+		      , mem_name
+		      , nickname
+		      , email
+		      , account_num
+		order by s.smem_no
+  	</select>
+  
+  <select id="searchDonaCount" resultType="_int">
+  	select count (*)
+		from (select 
+				    smem_no
+				  , mem_name
+				  , nickname
+				  , email
+				  , sum(spon_fee) as spon_fee
+				  , account_num
+				from sponsorship s
+				join member m on(s.smem_no = m.mem_no)
+				group 
+				    by smem_no
+				      , mem_name
+				      , nickname
+				      , email
+				      , account_num
+				order by s.smem_no)
+		where    
+	    <choose>
+	 		<when test="condition == 'memName'">
+	 			mem_name
+	 		</when>
+	 		<when test="condition == 'nickName'">
+	 			 nickName
+	 		</when>
+	 		<otherwise>
+	 			mem_name like '%' || #{keyword} || '%'
+	 			or nickName
+	 		</otherwise>
+	 	</choose>
+	 	like '%' || #{keyword} || '%'
+  </select>
+  
+  <select id="searchDonaList" resultMap="sponResult">
+  	select 
+	            *
+	from (select 
+			    smem_no
+			  , mem_name
+			  , nickname
+			  , email
+			  , sum(spon_fee) as spon_fee
+			  , account_num
+			from sponsorship s
+			join member m on(s.smem_no = m.mem_no)
+			group 
+			    by smem_no
+			      , mem_name
+			      , nickname
+			      , email
+			      , account_num
+			order by s.smem_no)
+  	where    
+	    <choose>
+	 		<when test="condition == 'memName'">
+	 			mem_name
+	 		</when>
+	 		<when test="condition == 'nickName'">
+	 			 nickName
+	 		</when>
+	 		<otherwise>
+	 			mem_name like '%' || #{keyword} || '%'
+	 			or nickName
+	 		</otherwise>
+	 	</choose>
+	 	like '%' || #{keyword} || '%'
+	 	order by smem_no
+  </select>
+  <!-- 후원상세 -->
+  <select id="selectSponsorCount" resultType="_int">
+	select count(*)
+		from (select 
+		        spon_no
+		      , mem_name
+		      , nickname
+		      , spon_fee
+		      , to_char(spon_date,'YYYY-MM-DD') as spon_date
+		from member
+		join sponsorship using(mem_no)
+		where smem_no = #{smemNo}
+		order by spon_no)
+  </select>
+  <select id="selectSponMem" resultMap="sponResult">
+  	select 
+		    smem_no
+		  , mem_name
+		  , nickname
+		  , email
+		  , sum(spon_fee) as spon_fee
+          ,bank
+		  , account_num
+		from sponsorship s
+		join member m on(s.smem_no = m.mem_no)
+		group 
+		    by smem_no
+		      , mem_name
+		      , nickname
+		      , email
+              , bank
+		      , account_num
+        having smem_no = #{smemNo}
+  </select>
+  
+  <select id="selectSponsorList" resultMap="sponResult">
+  	select 
+	        spon_no
+	      , mem_name
+	      , nickname
+	      , spon_fee
+	      , to_char(spon_date,'YYYY-MM-DD') as spon_date
+	      , bank
+	      , account_num
+	from member
+	join sponsorship using(mem_no)
+	where smem_no = #{smemNo}
+	order by spon_no
+  </select>
+  
+  
+  <!-- [한솔] - QnA, 칼럼 후원 insert -->
+  <!-- memNo : 후원한 회원번호 / smemNo : 후원받은 회원번호 -->
+  <insert id="sponInsert">
+  	insert
+  	  into sponsorship
+  	     (
+  	       spon_no
+  	     , mem_no
+		 , smem_no
+		 , spon_fee
+		 , spon_date
+		 , spon_category
+		 , ref_boa_no
+  	     )
+  	     values
+  	     (
+  	       seq_sno.nextval
+  	     , #{memNo}
+  	     , #{smemNo}
+  	     , 1000
+  	     , sysdate
+  	     , #{sponCategory}
+  	     , #{refBoaNo}
+  	     )
+  </insert>
+  
+  
+</mapper>

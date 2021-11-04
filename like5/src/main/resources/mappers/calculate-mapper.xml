@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="calculateMapper">
+	
+	<resultMap id="calResult" type="Calculate">
+	  <result column="cal_no" property="calNo" />
+	  <result column="mem_no" property="memNo" />
+	  <result column="mem_name" property="memName" />
+	  <result column="cal_date" property="calDate" />
+	  <result column="cal_price" property="calPrice" />
+	  <result column="cal_status" property="calStatus" />
+	  <result column="cal_bank" property="calBank" />
+	  <result column="cal_account" property="calAccount" />
+ 	</resultMap>
+
+	<select id="selectCalCount" resultType="_int">
+		select count(*)
+		from calculate
+		where mem_no = #{smem_no}
+	</select>
+
+	<select id="selectTotalCal" resultMap="calResult">
+		select 
+		        mem_no
+        		,mem_name
+		        , sum(cal_price) as cal_price
+		from calculate
+		where mem_no = #{smemNo}
+		group by mem_no, mem_name
+	</select>
+	
+	<select id="selectCalList" resultMap="calResult">
+		select
+		        cal_no
+		      , mem_no
+		      , mem_name
+		      , to_char( cal_date,'YYYY-MM-DD') as cal_date
+		      , cal_price
+		      , cal_status
+		      , cal_bank
+		      , cal_account
+		from calculate
+		where mem_no = #{smem_no}
+		order by cal_no
+	</select>
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.kh.like5.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.like5.member.model.vo.Sponsorship" alias="Sponsorship"/>
+		<typeAlias type="com.kh.like5.board.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.kh.like5.member.model.vo.Merger" alias="Merger"/>
+		<typeAlias type="com.kh.like5.member.model.vo.MergerMemSpon" alias="MergerMemSpon"/>
+		<typeAlias type="com.kh.like5.booking.model.vo.Booking" alias="Booking"/>
+		<typeAlias type="com.kh.like5.booking.model.vo.Office" alias="Office" />
+		<typeAlias type="com.kh.like5.board.model.vo.Board" alias="Board" />
+		<typeAlias type="com.kh.like5.common.model.vo.Attachment" alias="Attachment" />
+		<typeAlias type="com.kh.like5.member.model.vo.Customer" alias="Customer" />
+		<typeAlias type="com.kh.like5.board.model.vo.Report" alias="Report" />
+		<typeAlias type="com.kh.like5.admin.model.vo.Calculate" alias="Calculate" />
+		<typeAlias type="com.kh.like5.admin.model.vo.Faq" alias="Faq" />
+		<typeAlias type="com.kh.like5.booking.model.vo.Review" alias="Review"/>
+		<typeAlias type="com.kh.like5.board.model.vo.Tag" alias="Tag"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="/mappers/booking-mapper.xml"/>
+		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/admin-mapper.xml"/>
+		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/calculate-mapper.xml"/>
+		<mapper resource="/mappers/sponsorship-mapper.xml"/>
+		<mapper resource="/mappers/customer-mapper.xml"/>
+		<mapper resource="/mappers/tag-mapper.xml"/>
+	</mappers>
+</configuration>

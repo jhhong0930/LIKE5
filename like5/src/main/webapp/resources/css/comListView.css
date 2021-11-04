@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+    
+    a { text-decoration:none !important } a:hover { text-decoration:none !important }
+
+    .main{
+        margin-top: 100px;;
+    }
+    
+    .community-header{
+        display: inline;
+    }
+
+    .aTags>*, .aTags{text-decoration: none;color: black;}
+
+    .aTags :hover{
+        color: rgb(220, 53, 69);
+    }
+
+    #searchForm >*{
+            float:left;
+            margin:5px;
+    }
+    
+    .form-control{width: 300px; height: 30px;}
+    
+    .select-area{float: right;}
+    .select-area>*{margin: 4px;}
+    #communityList>*{margin: auto;}
+
+    .TalkBoxItem .talk-box-wrapper{
+        padding:10px 10px 5px 10px;
+        display: flex;
+    }
+
+    .talk-box-wrapper:hover{cursor: pointer; background-color: rgba(224, 224, 224, 0.3);}
+    .TalkBoxItem .talk-box-col__content{
+        width:100%;
+    }
+	
+    .TalkBoxItem .talk-box-col__thumbnail>img{
+        margin-left: 5px;
+        width : 100px;
+        overflow: hidden;
+    }
+    
+    .TalkPageHeaderModule .talk-filter-box-wrapper .talk-filter-box-inner{
+        display: flex;
+        border:1px solid #d3d3d3;
+        border-radius:5px;
+        width:88%;
+    }
+    
+    .talk-filter-box-inner>div{
+        padding:5px 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+
+    .talk-filter-box-inner .on{
+        background-color: rgb(220, 53, 69);
+        color: white;
+    }
+
+    .talk-filter-box-inner {
+        color: black;
+    }
+
+    .talk-box-row__info{margin-top: 30px;}
+    
+    
+    .category-tag-header-wrapper {
+        margin-bottom: 1%;
+        margin-left: 30px
+    }
+
+    .sidebar-item-wrapper {
+        float: right;
+    }
+    .category-list-wrapper>*{
+        margin: 5px;
+        padding-left:30px;
+    }
+
+    .search-item-wrapper {display: flex; justify-content: space-between;}
+
+    .search-item-wrapper>*{margin-left: 10px;}
+    .search-item-wrapper>*:hover{cursor: pointer;}
+
+    textarea.form-control:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+          border-color: rgba(224, 224, 224, 0.3);
+          box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(224, 224, 224, 0.3);
+          outline: 0 none;
+      }

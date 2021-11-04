@@ -1,0 +1,23 @@
+@charset "UTF-8";
+   a { text-decoration:none !important } a:hover { text-decoration:none !important }
+    .like-scrap-sponsorship>div{font-size: 11px; text-align:center; margin: 10px 10px}
+    .user-img>*{
+          height: 50px;
+          width:50px;
+          border-radius: 50px;
+          margin-right: 10px;
+          background-color:rgb(224, 224, 224) ;
+          text-align: center;
+          padding-top: 10px;
+      }
+
+    .columnWriter>* {line-height: 50%;}
+    
+    .like-scrap-sponsorship>*:hover{cursor: pointer; opacity: 10%;}
+    .columnWriter>*:hover{cursor: pointer;}
+    .thumbnail{display: inline-block; margin: 14px;}
+
+    .thumbnail:hover{
+        cursor: pointer;
+        opacity:0.7;
+    }
